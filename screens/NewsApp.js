@@ -1,20 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Image, FlatList, Pressable, TouchableOpacity, Animated } from 'react-native';
+import { StyleSheet, View, Text, Image, FlatList, Pressable, TouchableOpacity, Animated, ScrollView } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import sublogo from '../assets/subscribe-button.png';
-import smallLogo from '../assets/icons8-news-48.png'
+import smallLogo from '../assets/icons8-news-48.png';
+import { Chip } from 'react-native-paper';
 import { Modal } from 'react-native';
 
 const categories = ["Technology", "Sports", "Politices", "Health", "Business"];
 const API_KEY = "pub_2188514dfd53a38c8315c5f3ed849ff912a6a";
+//https://newsdata.io/api/1/news?apikey=pub_2188514dfd53a38c8315c5f3ed849ff912a6a 
 
 const NewsApp = ({ navigation }) => {
   const [news, setNews] = useState([]);
   const [animation] = useState(new Animated.Value(1));
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
+  const [selectedCategories, setSelectedCategories] = useState([]);
 
-
+  const handleSelect = (val: string) => {
+    setSelectedCategories((prev: string[]) =>
+      prev.find((p) => p === val) 
+      ? prev.filter((cat) => cat !== val)
+      : [...prev, val]
+    );
+  }
 
   useEffect(() => {
     fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=f4d9c81e82e74b42b3bde15062d289f2')
@@ -97,6 +106,23 @@ const NewsApp = ({ navigation }) => {
       <View style={styles.categoriesContainer}>
         <Text style={styles.categoriesText}>Categories</Text>
       </View>
+      <View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterContainer}>
+          {categories.map((cat) => (
+            <Chip 
+              key={cat}
+              mode='outlined'
+              style={styles.chipItem}
+              textStyle={{fontWeight: '400', color:"black", padding: 1}}
+              showSelectedOverlay
+              selected={selectedCategories.find((c) => cat === c) ? true : false}
+              onPress={() => handleSelect(cat)}
+            >
+              {cat}
+            </Chip>
+          ))}
+        </ScrollView>
+      </View>
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Image
           style={styles.buttonImage}
@@ -137,6 +163,7 @@ const styles = StyleSheet.create({
   categoriesText: {
     fontWeight: 'bold',
     fontSize: 25,
+    marginBottom: -10,
   },
   buttonImage: {
     height: 40,
@@ -248,6 +275,15 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     width: 300,
     textAlign: 'left',
+  },
+  filterContainer: {
+    flexDirection: 'row',
+    flexWrap: "wrap",
+    marginVertical: 10,
+  },
+  chipItem: {
+    marginHorizontal: 5,
+    marginVertical: 5,
   },
 });  
 
