@@ -1,5 +1,3 @@
-## Little Lemon
+## News App
 
-This is the code example for the newsletter subscription application.
-
-![](little_lemon.gif)
+Nothing to display for now
