@@ -81,6 +81,9 @@ const NewsApp = ({ navigation }) => {
             style={styles.gradient}
           />
           <Text numberOfLines={2} style={styles.title}>{item.title}</Text>
+          <View style={styles.categoryTextContainer}>
+            <Text style={styles.category}>Hot🔥</Text>
+          </View>
         </View>
       </Pressable>
     );
@@ -139,7 +142,7 @@ const NewsApp = ({ navigation }) => {
       <View style={styles.newsContainer}>
         <View>
           <Text style={styles.dateText}>{getCurrentDate()}</Text>
-          <Text style={styles.latestNewsText}>Trending🔥</Text>
+          <Text style={styles.latestNewsText}>Trending</Text>
         </View>
       </View>
       <View>
@@ -159,13 +162,12 @@ const NewsApp = ({ navigation }) => {
             <Chip
               icon={emptyIcon}
               key={category}
-              mode='outlined'
               selected={category === selectedCategory}
-              textStyle={{fontWeight: '400', color:"black", padding: 1}}
+              textStyle={{fontWeight: '400', color: category === selectedCategory ? "white" : "black", padding: 3}}
               onPress={() => setSelectedCategory(category)}
               style={[
                 styles.chipItem,
-                category === selectedCategory && {  backgroundColor: '#1E90FF22' },
+                { backgroundColor: category === selectedCategory ? "#1E90FF" : "rgba(0, 0, 0, 0.05)", borderRadius: 20 },
               ]}
             >
               {category}
@@ -189,9 +191,23 @@ const NewsApp = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  category: {
+    color: 'black',
+    backgroundColor: 'white',
+    alignSelf: 'center',
+  },
+  categoryTextContainer: {
+    position: 'absolute',
+    top: 10,
+    left: 10,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    height: 30,
+    width: 70,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#F5FCFF',
   },
   smallLogo: {
     height: 50,
@@ -237,19 +253,19 @@ const styles = StyleSheet.create({
       width: 1,
       height: 1,
     },
-    shadowOpacity: 0.8,
+    shadowOpacity: 0.3,
     shadowRadius: 2.22,
     elevation: 3,
-    height: 190,
-    width: 250,
+    height: 200,
+    width: 280,
   },
   list: {
     paddingHorizontal: 10,
   },
   image: {
-    height: 190,
+    height: 200,
     borderRadius: 10,
-    width: 250,
+    width: 280,
     top: 0,
     left: 0,
     right: 0,
@@ -259,11 +275,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginTop: 5,
-    width: 250,
+    width: 280,
     position: 'absolute',
     color: 'white',
     bottom: 0,
-    padding: 6,
+    padding: 10,
     // backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   description: {
