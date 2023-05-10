@@ -5,6 +5,8 @@ import sublogo from '../assets/subscribe-button.png';
 import smallLogo from '../assets/icons8-news-48.png';
 import { Chip, Button } from 'react-native-paper';
 import { Modal } from 'react-native';
+import moment from 'moment';
+import {LinearGradient} from 'expo-linear-gradient';
 
 const API_KEY = 'f4d9c81e82e74b42b3bde15062d289f2';
 const categories = ['Business', 'Technology', 'Entertainment', 'Health', 'Science', 'Sports'];
@@ -38,12 +40,30 @@ const NewsApp = ({ navigation }) => {
     }
   };
 
-  const renderItem = ({item}) => (
-    <View style={styles.newsItem}>
-      <Text style={styles.title2}>{item.title}</Text>
-      <Text style={styles.description}>{item.description}</Text>
-    </View>
-  );
+  const renderItem = ({item}) => {
+
+    const handlePress = () => {
+      setSelectedArticle(item);
+      setModalVisible(true);
+    };    
+    
+    return (
+      <Pressable onPress={handlePress}>
+        <View style={styles.newsItem}>
+        <View style={styles.catoImageView}>
+          <Image style={styles.catoImage} source={{ uri: item.urlToImage }} />
+        </View>
+        <View style={styles.catoRight}>
+          <Text numberOfLines={3} style={styles.title2}>{item.title}</Text>
+          <View style={styles.publishInfo}>
+            <Text style={styles.publisher}>{item.source.name} - </Text>
+            <Text style={styles.publisher}>{moment(item.publishedAt).fromNow()}</Text>
+          </View>
+        </View>
+      </View>
+      </Pressable>
+    );
+  }
 
   const renderArticle = ({ item }) => {
 
@@ -56,6 +76,10 @@ const NewsApp = ({ navigation }) => {
       <Pressable style={styles.article} onPress={handlePress}>
         <View styles={styles.imageContainer}>
           <Image style={styles.image} source={{ uri: item.urlToImage }} />
+          <LinearGradient
+            colors={['transparent', 'rgba(0,0,0,0.8)']}
+            style={styles.gradient}
+          />
           <Text numberOfLines={2} style={styles.title}>{item.title}</Text>
         </View>
       </Pressable>
@@ -220,14 +244,14 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.8,
     shadowRadius: 2.22,
     elevation: 3,
-    height: 150,
+    height: 190,
     width: 250,
   },
   list: {
     paddingHorizontal: 10,
   },
   image: {
-    height: 150,
+    height: 190,
     borderRadius: 10,
     width: 250,
     top: 0,
@@ -236,14 +260,15 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
   title: {
-    fontSize: 15,
+    fontSize: 18,
     fontWeight: 'bold',
     marginTop: 5,
     width: 250,
     position: 'absolute',
     color: 'white',
     bottom: 0,
-    padding: 8,
+    padding: 6,
+    // backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
   description: {
     marginTop: 5,
@@ -268,7 +293,8 @@ const styles = StyleSheet.create({
   },
   imageContainer:  {
     flex: 1,
-    position: 'relative'
+    position: 'relative',
+    overflow: 'hidden',
   },
   buttonText: {
     color: 'white',
@@ -349,18 +375,47 @@ const styles = StyleSheet.create({
     margin: 4,
   },
   newsItem: {
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     borderBottomWidth: 1,
     borderColor: '#ccc',
+    flexDirection: 'row',
+    alignItems:'center',
   },
   title2: {
-    fontSize: 18,
+    fontSize: 15,
     fontWeight: 'bold',
     marginBottom: 8,
+    width: 260,
   },
   description: {
     fontSize: 14,
+  },
+  catoImage: {
+    height: 90,
+    width: 90,
+    borderRadius: 8,
+  },
+  catoImageView: {
+    padding: 10,
+  },
+  publishInfo: {
+    flexDirection: 'row',
+    marginTop: 'auto',
+  },
+  publisher: {
+    color: 'rgba(0, 0, 0, 0.6)',
+  },
+  catoRight: {
+    height: 90,
+  },
+  gradient: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 100,
+    borderRadius: 20,
   },
 });  
 
