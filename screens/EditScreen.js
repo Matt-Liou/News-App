@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet, Image, Text, TextInput, Pressable, Alert, ScrollView} from 'react-native';
 import { useContext } from 'react';
 import LittleLemonLogo from '../assets/little-lemon-logo-grey.png';
-import Subscription from '../Subscription';
+import Subscription from '../components/Subscription';
 import SubData from '../subscrition_data/SubData';
 
 const EditScreen = () => {

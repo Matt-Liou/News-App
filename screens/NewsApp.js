@@ -6,17 +6,15 @@ import smallLogo from '../assets/icons8-news-48.png';
 import { Chip, Button } from 'react-native-paper';
 import { Modal } from 'react-native';
 
-
 const API_KEY = 'f4d9c81e82e74b42b3bde15062d289f2';
-const categories = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'];
-//https://newsdata.io/api/1/news?apikey=pub_2188514dfd53a38c8315c5f3ed849ff912a6a 
+const categories = ['General', 'Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
 
 const NewsApp = ({ navigation }) => {
   const [news, setNews] = useState([]);
   const [animation] = useState(new Animated.Value(1));
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('general');
+  const [selectedCategory, setSelectedCategory] = useState('General');
   const [newsData, setNewsData] = useState([]);
 
   const getCurrentDate = () => {
@@ -27,23 +25,6 @@ const NewsApp = ({ navigation }) => {
   
     return `${day}, ${month} ${dayOfMonth}`;
   };
-  
-  const renderNewsDataArticle = ({ item }) => {
-    console.log("Rendering article:", item);
-  
-    const handlePress = () => {
-      setSelectedArticle(item);
-      setModalVisible(true);
-    };
-  
-    return (
-      <Pressable style={styles.article} onPress={handlePress}>
-        <Image style={styles.image} source={{ uri: item.image }} />
-        <Text numberOfLines={3} style={styles.title}>{item.title}</Text>
-      </Pressable>
-    );
-  };
-  
 
   const fetchNews = async (category) => {
     try {
@@ -68,14 +49,6 @@ const NewsApp = ({ navigation }) => {
     fetchNews(selectedCategory);
   }, [selectedCategory]);
 
-  const handleSelect = (val: string) => {
-    setSelectedCategories((prev: string[]) =>
-      prev.find((p) => p === val) 
-      ? prev.filter((cat) => cat !== val)
-      : [...prev, val]
-    );
-  };
-
   useEffect(() => {
     fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=f4d9c81e82e74b42b3bde15062d289f2')
       .then(response => response.json())
@@ -98,7 +71,6 @@ const NewsApp = ({ navigation }) => {
       <Pressable style={styles.article} onPress={handlePress}>
         <Image style={styles.image} source={{ uri: item.urlToImage }} />
         <Text numberOfLines={3} style={styles.title}>{item.title}</Text>
-        {/* <Text numberOfLines={4} style={styles.description}>{item.description}</Text> */}
       </Pressable>
     );
   };
@@ -116,6 +88,8 @@ const NewsApp = ({ navigation }) => {
   const animatedStyle = {
     transform: [{ scale: animation }],
   };
+
+  const emptyIcon = () => null
 
   return (
     <View style={styles.container}>
@@ -139,10 +113,11 @@ const NewsApp = ({ navigation }) => {
           </View>
         </View>
       </Modal>
+      {/* News screen view starting here */}
       <View style={styles.newsContainer}>
         <View>
           <Text style={styles.dateText}>{getCurrentDate()}</Text>
-          <Text style={styles.latestNewsText}>Trending </Text>
+          <Text style={styles.latestNewsText}>Trending🔥</Text>
         </View>
       </View>
       <View>
@@ -160,12 +135,17 @@ const NewsApp = ({ navigation }) => {
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterContainer}>
           {categories.map((category) => (
             <Chip
+              icon={emptyIcon}
               key={category}
               mode='outlined'
               selected={category === selectedCategory}
               textStyle={{fontWeight: '400', color:"black", padding: 1}}
               onPress={() => setSelectedCategory(category)}
-              style={styles.chipItem}>
+              style={[
+                styles.chipItem,
+                category === selectedCategory && {  backgroundColor: '#1E90FF22' },
+              ]}
+            >
               {category}
             </Chip>
           ))}
@@ -238,8 +218,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
     elevation: 3,
-    height: 180,
-    width: 230,
   },
   list: {
     paddingHorizontal: 10,
@@ -275,6 +253,10 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 5 }, // Add shadow offset for iOS
     shadowOpacity: 0.3, // Add shadow opacity for iOS
     shadowRadius: 5, // Add shadow radius for iOS
+  },
+  imageContainer:  {
+    flex: 1,
+    position: 'relative'
   },
   buttonText: {
     color: 'white',

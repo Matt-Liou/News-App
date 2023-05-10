@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity, Animated } from 'react-native';
-import SubData from './subscrition_data/SubData';
+import SubData from '../subscrition_data/SubData';
 
 const Subscription = (props) => {
   const { removeEmail } = useContext(SubData);
