@@ -44,6 +44,23 @@ const NewsApp = ({ navigation }) => {
       <Text style={styles.description}>{item.description}</Text>
     </View>
   );
+
+  const renderArticle = ({ item }) => {
+
+    const handlePress = () => {
+      setSelectedArticle(item);
+      setModalVisible(true);
+    };    
+
+    return (
+      <Pressable style={styles.article} onPress={handlePress}>
+        <View styles={styles.imageContainer}>
+          <Image style={styles.image} source={{ uri: item.urlToImage }} />
+          <Text numberOfLines={2} style={styles.title}>{item.title}</Text>
+        </View>
+      </Pressable>
+    );
+  };
   
   useEffect(() => {
     fetchNews(selectedCategory);
@@ -59,21 +76,6 @@ const NewsApp = ({ navigation }) => {
   const closeModal = () => {
     setModalVisible(false);
   };    
-  
-  const renderArticle = ({ item }) => {
-
-    const handlePress = () => {
-      setSelectedArticle(item);
-      setModalVisible(true);
-    };    
-
-    return (
-      <Pressable style={styles.article} onPress={handlePress}>
-        <Image style={styles.image} source={{ uri: item.urlToImage }} />
-        <Text numberOfLines={3} style={styles.title}>{item.title}</Text>
-      </Pressable>
-    );
-  };
 
   const handlePress = () => {
     Animated.timing(animation, {
@@ -209,29 +211,39 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     backgroundColor: '#fff',
     borderRadius: 20,
-    padding: 15,
+    padding: 0,
     shadowColor: '#000',
     shadowOffset: {
-      width: 0,
+      width: 1,
       height: 1,
     },
-    shadowOpacity: 0.22,
+    shadowOpacity: 0.8,
     shadowRadius: 2.22,
     elevation: 3,
+    height: 150,
+    width: 250,
   },
   list: {
     paddingHorizontal: 10,
   },
   image: {
-    height: 100,
+    height: 150,
     borderRadius: 10,
-    width: 200,
+    width: 250,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
   title: {
-    fontSize: 12,
+    fontSize: 15,
     fontWeight: 'bold',
     marginTop: 5,
-    width: 200,
+    width: 250,
+    position: 'absolute',
+    color: 'white',
+    bottom: 0,
+    padding: 8,
   },
   description: {
     marginTop: 5,
@@ -248,11 +260,11 @@ const styles = StyleSheet.create({
     height: 70,
     width: 70,
     borderRadius: 50,
-    elevation: 10, // Increase elevation for a stronger shadow effect on Android
-    shadowColor: '#000', // Add shadow color for iOS
-    shadowOffset: { width: 0, height: 5 }, // Add shadow offset for iOS
-    shadowOpacity: 0.3, // Add shadow opacity for iOS
-    shadowRadius: 5, // Add shadow radius for iOS
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 5 }, 
+    shadowOpacity: 0.3, 
+    shadowRadius: 5,
   },
   imageContainer:  {
     flex: 1,
@@ -279,9 +291,9 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2,
+      height: 0,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.6,
     shadowRadius: 3.84,
     elevation: 5,
     width: 330,
