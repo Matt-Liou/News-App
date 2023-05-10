@@ -17,6 +17,18 @@ const NewsApp = ({ navigation }) => {
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [selectedCategories, setSelectedCategories] = useState([]);
 
+
+  const getCurrentDate = () => {
+    const date = new Date();
+    const day = date.toLocaleString('en-US', { weekday: 'long' });
+    const month = date.toLocaleString('en-US', { month: 'long' });
+    const dayOfMonth = date.getDate();
+  
+    return `${day}, ${month} ${dayOfMonth}`;
+  };
+  
+  
+
   const handleSelect = (val: string) => {
     setSelectedCategories((prev: string[]) =>
       prev.find((p) => p === val) 
@@ -89,8 +101,10 @@ const NewsApp = ({ navigation }) => {
         </View>
       </Modal>
       <View style={styles.newsContainer}>
-        <Image style={styles.smallLogo} source={smallLogo} />
-        <Text style={styles.latestNewsText}>Latest News</Text>
+        <View>
+          <Text style={styles.dateText}>{getCurrentDate()}</Text>
+          <Text style={styles.latestNewsText}>Trending 🔥</Text>
+        </View>
       </View>
       <View>
       <FlatList
@@ -102,9 +116,6 @@ const NewsApp = ({ navigation }) => {
         flexGrow={1}
         showsHorizontalScrollIndicator={false}
       />
-      </View>
-      <View style={styles.categoriesContainer}>
-        <Text style={styles.categoriesText}>Categories</Text>
       </View>
       <View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterContainer}>
@@ -144,16 +155,16 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   newsContainer: {
-    padding:10,
     paddingLeft: 25,
     marginTop: 55,
     marginBottom: -10,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   latestNewsText: {
     fontWeight: 'bold',
-    fontSize: 25,
+    fontSize: 30,
+    marginBottom: 10,
   },
   categoriesContainer: {
     padding: 10,
@@ -284,6 +295,12 @@ const styles = StyleSheet.create({
   chipItem: {
     marginHorizontal: 5,
     marginVertical: 5,
+  },
+  dateText: {
+    fontSize: 13,
+    fontWeight: "bold",
+    marginBottom: 0,
+    opacity: 0.5,
   },
 });  
 
