@@ -111,10 +111,6 @@ const NewsApp = ({ navigation }) => {
       });
   }
 
-  const animatedStyle = {
-    transform: [{ scale: animation }],
-  };
-
   const emptyIcon = () => null
 
   return (
@@ -353,6 +349,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: "wrap",
     marginVertical: 10,
+    marginLeft: 14,
+    marginTop: 20,
+    marginBottom: -5,
   },
   chipItem: {
     marginHorizontal: 5,
