@@ -185,7 +185,7 @@ const styles = StyleSheet.create({
   },
   latestNewsText: {
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 40,
     marginBottom: 10,
   },
   categoriesContainer: {
@@ -284,11 +284,11 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    width: 350,
+    width: 330,
   },
   closeButton: {
     alignSelf: 'flex-end',
-    marginBottom: 15,
+    marginBottom: 10,
     marginTop: -20,
     marginRight: -10,
   },
@@ -321,10 +321,11 @@ const styles = StyleSheet.create({
     marginVertical: 5,
   },
   dateText: {
-    fontSize: 13,
+    fontSize: 18,
     fontWeight: "bold",
     marginBottom: 0,
     opacity: 0.5,
+    marginTop: 10,
   },
   chipContainer: {
     flexDirection: 'row',
