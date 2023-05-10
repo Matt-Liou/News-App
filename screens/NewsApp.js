@@ -205,6 +205,11 @@ const styles = StyleSheet.create({
     height: 30,
     width: 70,
     justifyContent: 'center',
+    elevation: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 }, 
+    shadowOpacity: 0.3, 
+    shadowRadius: 5,
   },
   container: {
     flex: 1,
@@ -264,7 +269,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: 200,
-    borderRadius: 10,
+    borderRadius: 20,
     width: 280,
     top: 0,
     left: 0,
