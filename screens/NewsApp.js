@@ -3,11 +3,12 @@ import { StyleSheet, View, Text, Image, FlatList, Pressable, TouchableOpacity, A
 import Ionicons from '@expo/vector-icons/Ionicons';
 import sublogo from '../assets/subscribe-button.png';
 import smallLogo from '../assets/icons8-news-48.png';
-import { Chip } from 'react-native-paper';
+import { Chip, Button } from 'react-native-paper';
 import { Modal } from 'react-native';
 
-const categories = ["Technology", "Sports", "Politices", "Health", "Business"];
-const API_KEY = "pub_2188514dfd53a38c8315c5f3ed849ff912a6a";
+
+const API_KEY = 'f4d9c81e82e74b42b3bde15062d289f2';
+const categories = ['business', 'entertainment', 'general', 'health', 'science', 'sports', 'technology'];
 //https://newsdata.io/api/1/news?apikey=pub_2188514dfd53a38c8315c5f3ed849ff912a6a 
 
 const NewsApp = ({ navigation }) => {
@@ -15,8 +16,8 @@ const NewsApp = ({ navigation }) => {
   const [animation] = useState(new Animated.Value(1));
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-
+  const [selectedCategory, setSelectedCategory] = useState('general');
+  const [newsData, setNewsData] = useState([]);
 
   const getCurrentDate = () => {
     const date = new Date();
@@ -27,7 +28,45 @@ const NewsApp = ({ navigation }) => {
     return `${day}, ${month} ${dayOfMonth}`;
   };
   
+  const renderNewsDataArticle = ({ item }) => {
+    console.log("Rendering article:", item);
   
+    const handlePress = () => {
+      setSelectedArticle(item);
+      setModalVisible(true);
+    };
+  
+    return (
+      <Pressable style={styles.article} onPress={handlePress}>
+        <Image style={styles.image} source={{ uri: item.image }} />
+        <Text numberOfLines={3} style={styles.title}>{item.title}</Text>
+      </Pressable>
+    );
+  };
+  
+
+  const fetchNews = async (category) => {
+    try {
+      const response = await fetch(
+        `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+      );
+      const responseJson = await response.json();
+      setNewsData(responseJson.articles);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const renderItem = ({item}) => (
+    <View style={styles.newsItem}>
+      <Text style={styles.title2}>{item.title}</Text>
+      <Text style={styles.description}>{item.description}</Text>
+    </View>
+  );
+  
+  useEffect(() => {
+    fetchNews(selectedCategory);
+  }, [selectedCategory]);
 
   const handleSelect = (val: string) => {
     setSelectedCategories((prev: string[]) =>
@@ -35,7 +74,7 @@ const NewsApp = ({ navigation }) => {
       ? prev.filter((cat) => cat !== val)
       : [...prev, val]
     );
-  }
+  };
 
   useEffect(() => {
     fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=f4d9c81e82e74b42b3bde15062d289f2')
@@ -103,37 +142,40 @@ const NewsApp = ({ navigation }) => {
       <View style={styles.newsContainer}>
         <View>
           <Text style={styles.dateText}>{getCurrentDate()}</Text>
-          <Text style={styles.latestNewsText}>Trending 🔥</Text>
+          <Text style={styles.latestNewsText}>Trending </Text>
         </View>
       </View>
       <View>
-      <FlatList
-        data={news}
-        horizontal={true}
-        renderItem={renderArticle}
-        keyExtractor={(item) => item.url}
-        contentContainerStyle={styles.list}
-        flexGrow={1}
-        showsHorizontalScrollIndicator={false}
-      />
+        <FlatList
+          data={news}
+          horizontal={true}
+          renderItem={renderArticle}
+          keyExtractor={(item) => item.url}
+          contentContainerStyle={styles.list}
+          flexGrow={1}
+          showsHorizontalScrollIndicator={false}
+        />
       </View>
       <View>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.filterContainer}>
-          {categories.map((cat) => (
-            <Chip 
-              key={cat}
+          {categories.map((category) => (
+            <Chip
+              key={category}
               mode='outlined'
-              style={styles.chipItem}
+              selected={category === selectedCategory}
               textStyle={{fontWeight: '400', color:"black", padding: 1}}
-              showSelectedOverlay
-              selected={selectedCategories.find((c) => cat === c) ? true : false}
-              onPress={() => handleSelect(cat)}
-            >
-              {cat}
+              onPress={() => setSelectedCategory(category)}
+              style={styles.chipItem}>
+              {category}
             </Chip>
           ))}
         </ScrollView>
       </View>
+        <FlatList
+          data={newsData}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+        />  
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Image
           style={styles.buttonImage}
@@ -301,6 +343,29 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 0,
     opacity: 0.5,
+  },
+  chipContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    marginBottom: 16,
+  },
+  chip: {
+    margin: 4,
+  },
+  newsItem: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderColor: '#ccc',
+  },
+  title2: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  description: {
+    fontSize: 14,
   },
 });  
 
