@@ -7,14 +7,14 @@ import { Chip, Button } from 'react-native-paper';
 import { Modal } from 'react-native';
 
 const API_KEY = 'f4d9c81e82e74b42b3bde15062d289f2';
-const categories = ['General', 'Business', 'Entertainment', 'Health', 'Science', 'Sports', 'Technology'];
+const categories = ['Business', 'Technology', 'Entertainment', 'Health', 'Science', 'Sports'];
 
 const NewsApp = ({ navigation }) => {
   const [news, setNews] = useState([]);
   const [animation] = useState(new Animated.Value(1));
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
-  const [selectedCategory, setSelectedCategory] = useState('General');
+  const [selectedCategory, setSelectedCategory] = useState('Business');
   const [newsData, setNewsData] = useState([]);
 
   const getCurrentDate = () => {
