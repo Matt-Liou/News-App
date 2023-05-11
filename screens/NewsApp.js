@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View, Text, Image, FlatList, Pressable, TouchableOpacity, Animated, ScrollView } from 'react-native';
+import { StyleSheet, View, Text, Image, FlatList, Pressable, TouchableOpacity, Animated, ScrollView, Linking } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import sublogo from '../assets/subscribe-button.png';
 import smallLogo from '../assets/icons8-news-48.png';
@@ -125,16 +125,28 @@ const NewsApp = ({ navigation }) => {
         onRequestClose={closeModal}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
-            <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
-              <Ionicons name="close" size={24} color="black" />
-            </TouchableOpacity>
-            {selectedArticle && (
-              <>
-                <Image style={styles.modalImage} source={{ uri: selectedArticle.urlToImage }} />
-                <Text style={styles.modalTitle}>{selectedArticle.title}</Text>
-                <Text style={styles.modalDescription}>{selectedArticle.description}</Text>
-              </>
-            )}
+              <TouchableOpacity style={styles.closeButton} onPress={closeModal}>
+                <View style={{alignItems: 'center', flexDirection: 'row'}}>
+                  <Ionicons name="return-up-back-outline" size={24} color="black" />
+                  <Text>  Return</Text>
+                </View>
+              </TouchableOpacity>
+              {selectedArticle && (
+                <>
+                  <Image style={styles.modalImage} source={{ uri: selectedArticle.urlToImage }} />
+                  <Text style={styles.modalTitle}>{selectedArticle.title}</Text>
+                  <View style={{flexDirection: 'row', width: 360}}>
+                    <Text style={styles.modalPublishInfo}>
+                      {new Date(selectedArticle.publishedAt).toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: '2-digit'})} by
+                    </Text>
+                    <Text style={styles.modalPublishInfo2}> {selectedArticle.author}</Text>
+                  </View>
+                  <Text style={styles.modalDescription}>{selectedArticle.content}</Text>
+                  <TouchableOpacity style={styles.openButton} onPress={() => Linking.openURL(selectedArticle.url)}>
+                    <Text style={styles.openButtonText}>Read Full Article</Text>
+                  </TouchableOpacity>
+                </>
+              )}
           </View>
         </View>
       </Modal>
@@ -322,14 +334,12 @@ const styles = StyleSheet.create({
   },
   centeredView: {
     flex: 1,
-    justifyContent: 'center',
+    // justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
   },
   modalView: {
     backgroundColor: 'white',
     borderRadius: 20,
-    padding: 35,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
@@ -339,32 +349,69 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.6,
     shadowRadius: 3.84,
     elevation: 5,
-    width: 330,
+    height: '100%',
   },
   closeButton: {
-    alignSelf: 'flex-end',
-    marginBottom: 10,
-    marginTop: -20,
-    marginRight: -10,
+    position: 'absolute',
+    top: 60,
+    left: 25,
+    padding: 10,
+    paddingHorizontal: 15,
+    backgroundColor: 'rgba(211, 211, 211, 0.8)',
+    borderRadius: 25,
+    flexDirection: 'row',
+    alignItems: 'center',
+    zIndex: 1,
   },
   modalImage: {
-    height: 200,
-    borderRadius: 10,
-    width: 300,
-    marginBottom: 15,
+    height: 350,
+    width: 400,
+    borderRadius: 30,
   },
   modalTitle: {
-    fontSize: 18,
+    fontSize: 30,
     fontWeight: 'bold',
-    marginBottom: 10,
-    width: 300,
+    marginBottom: 20,
+    width: 360,
     textAlign: 'left',
+    marginTop: 20,
+  },
+  modalPublishInfo: {
+    fontSize: 18,
+    color: 'rgba(0, 0, 0, 0.6)',
+    marginBottom: 20,
+  },
+  modalPublishInfo2: {
+    fontSize: 18,
+    color: 'rgba(0, 0, 0, 1)',
+    marginBottom: 20,
+    fontWeight: 'bold',
+    fontFamily: 'Optima-BoldItalic',
   },
   modalDescription: {
     marginBottom: -10,
     lineHeight: 20,
-    width: 300,
+    width: 360,
+    alignSelf: 'center',
     textAlign: 'left',
+    fontSize: 20,
+    color: 'rgba(0, 0, 0, 0.8)',
+    fontFamily: 'Times New Roman',
+  },
+  openButton: {
+    backgroundColor: '#1E90FF',
+    borderRadius: 20,
+    padding: 10,
+    bottom: 0,
+    marginTop: 'auto',
+    marginBottom: 25,
+    alignItems: 'center',
+    width: 200,
+  },
+  openButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 18,
   },
   filterContainer: {
     flexDirection: 'row',
