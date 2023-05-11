@@ -134,16 +134,20 @@ const NewsApp = ({ navigation }) => {
               {selectedArticle && (
                 <>
                   <Image style={styles.modalImage} source={{ uri: selectedArticle.urlToImage }} />
-                  <Text style={styles.modalTitle}>{selectedArticle.title}</Text>
-                  <View style={{flexDirection: 'row', width: 360}}>
-                    <Text style={styles.modalPublishInfo}>
-                      {new Date(selectedArticle.publishedAt).toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: '2-digit'})} by
-                    </Text>
-                    <Text style={styles.modalPublishInfo2}> {selectedArticle.author}</Text>
+                  <View>
+                    <ScrollView>
+                      <Text style={styles.modalTitle}>{selectedArticle.title}</Text>
+                      <View style={{flexDirection: 'row', width: 360}}>
+                        <Text style={styles.modalPublishInfo}>
+                          {new Date(selectedArticle.publishedAt).toLocaleDateString('en-US', {weekday: 'short', month: 'short', day: '2-digit'})} by
+                        </Text>
+                        <Text style={styles.modalPublishInfo2}> {selectedArticle.author}</Text>
+                      </View>
+                      <Text style={styles.modalDescription}>{selectedArticle.content}</Text>
+                      </ScrollView>
                   </View>
-                  <Text style={styles.modalDescription}>{selectedArticle.content}</Text>
                   <TouchableOpacity style={styles.openButton} onPress={() => Linking.openURL(selectedArticle.url)}>
-                    <Text style={styles.openButtonText}>Read Full Article</Text>
+                      <Text style={styles.openButtonText}>Read Full Article</Text>
                   </TouchableOpacity>
                 </>
               )}
@@ -357,14 +361,14 @@ const styles = StyleSheet.create({
     left: 25,
     padding: 10,
     paddingHorizontal: 15,
-    backgroundColor: 'rgba(211, 211, 211, 0.8)',
+    backgroundColor: 'rgba(255, 255, 255, 0.8)',
     borderRadius: 25,
     flexDirection: 'row',
     alignItems: 'center',
     zIndex: 1,
   },
   modalImage: {
-    height: 350,
+    height: 480,
     width: 400,
     borderRadius: 30,
   },
