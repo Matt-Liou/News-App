@@ -343,7 +343,6 @@ const styles = StyleSheet.create({
   },
   modalView: {
     backgroundColor: 'white',
-    borderRadius: 20,
     alignItems: 'center',
     shadowColor: '#000',
     shadowOffset: {
