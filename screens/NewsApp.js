@@ -1,7 +1,7 @@
 import React, { useState, useEffect, } from 'react';
 import { StyleSheet, View, Text, Image, FlatList, Pressable, TouchableOpacity, Animated, ScrollView, Linking } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import sublogo from '../assets/subscribe-button.png';
+import sublogo from '../assets/mail.png';
 import smallLogo from '../assets/icons8-news-48.png';
 import { Chip, Button } from 'react-native-paper';
 import { Modal } from 'react-native';
@@ -371,7 +371,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   modalImage: {
-    height: 480,
+    height: 500,
     width: 400,
     // borderBottomLeftRadius: 30,
     // borderBottomRightRadius: 30,
@@ -407,8 +407,12 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     marginTop: 10,
-    borderTopLeftRadius: 60,
-    borderTopRightRadius: 60,
+    borderTopLeftRadius: 50,
+    borderTopRightRadius: 50,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 0 }, 
+    shadowOpacity: 0.4, 
+    shadowRadius: 5,
   },
   modalDescription: {
     marginBottom: -10,
