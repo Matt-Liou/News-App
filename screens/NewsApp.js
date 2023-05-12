@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, } from 'react';
 import { StyleSheet, View, Text, Image, FlatList, Pressable, TouchableOpacity, Animated, ScrollView, Linking } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import sublogo from '../assets/subscribe-button.png';
@@ -28,6 +28,8 @@ const NewsApp = ({ navigation }) => {
     return `${day}, ${month} ${dayOfMonth}`;
   };
 
+  
+
   const fetchNews = async (category) => {
     try {
       const response = await fetch(
@@ -50,17 +52,17 @@ const NewsApp = ({ navigation }) => {
     return (
       <Pressable onPress={handlePress}>
         <View style={styles.newsItem}>
-        <View style={styles.catoImageView}>
-          <Image style={styles.catoImage} source={{ uri: item.urlToImage }} />
-        </View>
-        <View style={styles.catoRight}>
-          <Text numberOfLines={3} style={styles.title2}>{item.title}</Text>
-          <View style={styles.publishInfo}>
-            <Text style={styles.publisher}>{item.source.name} - </Text>
-            <Text style={styles.publisher}>{moment(item.publishedAt).fromNow()}</Text>
+          <View style={styles.catoImageView}>
+            <Image style={styles.catoImage} source={{ uri: item.urlToImage }} />
+          </View>
+          <View style={styles.catoRight}>
+            <Text numberOfLines={3} style={styles.title2}>{item.title}</Text>
+            <View style={styles.publishInfo}>
+              <Text style={styles.publisher}>{item.source.name} - </Text>
+              <Text style={styles.publisher}>{moment(item.publishedAt).fromNow()}</Text>
+            </View>
           </View>
         </View>
-      </View>
       </Pressable>
     );
   }
@@ -134,7 +136,7 @@ const NewsApp = ({ navigation }) => {
               {selectedArticle && (
                 <>
                   <Image style={styles.modalImage} source={{ uri: selectedArticle.urlToImage }} />
-                  <View>
+                  <View style={styles.modalTextView}>
                     <ScrollView>
                       <Text style={styles.modalTitle}>{selectedArticle.title}</Text>
                       <View style={{flexDirection: 'row', width: 360}}>
@@ -191,11 +193,13 @@ const NewsApp = ({ navigation }) => {
           ))}
         </ScrollView>
       </View>
+      <View>
         <FlatList
-          data={newsData}
-          renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
-        />  
+            data={newsData}
+            renderItem={renderItem}
+            keyExtractor={(item, index) => index.toString()}
+          /> 
+      </View>
       <TouchableOpacity style={styles.button} onPress={handlePress}>
         <Image
           style={styles.buttonImage}
@@ -369,20 +373,23 @@ const styles = StyleSheet.create({
   modalImage: {
     height: 480,
     width: 400,
-    borderRadius: 30,
+    // borderBottomLeftRadius: 30,
+    // borderBottomRightRadius: 30,
   },
   modalTitle: {
     fontSize: 30,
     fontWeight: 'bold',
-    marginBottom: 20,
+    marginBottom: 10,
     width: 360,
     textAlign: 'left',
-    marginTop: 20,
+    marginTop: 30,
+    paddingHorizontal: 30,
   },
   modalPublishInfo: {
     fontSize: 18,
     color: 'rgba(0, 0, 0, 0.6)',
     marginBottom: 20,
+    paddingLeft: 30,
   },
   modalPublishInfo2: {
     fontSize: 18,
@@ -391,15 +398,28 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontFamily: 'Optima-BoldItalic',
   },
+  modalTextView: {
+    position: 'absolute',
+    top: 430,
+    backgroundColor: 'white',
+    flex: 1,
+    right: 0,
+    left: 0,
+    bottom: 0,
+    marginTop: 10,
+    borderTopLeftRadius: 60,
+    borderTopRightRadius: 60,
+  },
   modalDescription: {
     marginBottom: -10,
     lineHeight: 20,
     width: 360,
     alignSelf: 'center',
     textAlign: 'left',
-    fontSize: 20,
-    color: 'rgba(0, 0, 0, 0.8)',
-    fontFamily: 'Times New Roman',
+    fontSize: 19,
+    paddingHorizontal: 10,
+    color: 'rgba(0, 0, 0, 0.9)',
+    fontFamily: 'Avenir',
   },
   openButton: {
     backgroundColor: '#1E90FF',
@@ -446,9 +466,7 @@ const styles = StyleSheet.create({
   },
   newsItem: {
     paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderBottomWidth: 1,
-    borderColor: '#ccc',
+    paddingTop: 8,
     flexDirection: 'row',
     alignItems:'center',
   },
