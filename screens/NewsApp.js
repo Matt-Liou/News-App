@@ -1,4 +1,4 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect, useContext} from 'react';
 import { StyleSheet, View, Text, Image, FlatList, Pressable, TouchableOpacity, Animated, ScrollView, Linking } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import sublogo from '../assets/mail.png';
@@ -7,6 +7,7 @@ import { Chip, Button } from 'react-native-paper';
 import { Modal } from 'react-native';
 import moment from 'moment';
 import {LinearGradient} from 'expo-linear-gradient';
+import { NewsContext } from '../datas/NewsContext';
 
 const API_KEY = 'f4d9c81e82e74b42b3bde15062d289f2';
 const categories = ['Business', 'Technology', 'Entertainment', 'Health', 'Science', 'Sports'];
@@ -17,7 +18,8 @@ const NewsApp = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('Business');
-  const [newsData, setNewsData] = useState([]);
+  // const [newsData, setNewsData] = useState([]);
+  const { newsData, fetchNews } = useContext(NewsContext);
 
   const getCurrentDate = () => {
     const date = new Date();
@@ -30,17 +32,19 @@ const NewsApp = ({ navigation }) => {
 
   
 
-  const fetchNews = async (category) => {
-    try {
-      const response = await fetch(
-        `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
-      );
-      const responseJson = await response.json();
-      setNewsData(responseJson.articles);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const fetchNews = async (category) => {
+  //   try {
+  //     const response = await fetch(
+  //       `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
+  //     );
+  //     const responseJson = await response.json();
+  //     setNewsData(responseJson.articles);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+
 
   const renderItem = ({item}) => {
 

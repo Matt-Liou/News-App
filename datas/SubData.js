@@ -6,8 +6,7 @@ export default SubData;
 export const DataProvider = ({ children }) => {
   const [subEmail, setSubEmails] = useState([
     "ydliou2003@gmail.com", 
-    "utliou2005@gmail.com", 
-    "test@gmail.com"
+    "utliou2005@gmail.com"
   ]);
 
   const addEmail = (item) => {

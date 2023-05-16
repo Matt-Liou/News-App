@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import SubscribeScreen from '../screens/SubscribeScreen';
 import EditScreen from "../screens/EditScreen";
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { DataProvider } from "../subscrition_data/SubData";
+import { DataProvider } from "../datas/SubData";
 
 const SubscribeNavigator = () => {
     const Tab = createBottomTabNavigator();

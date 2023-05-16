@@ -3,7 +3,7 @@ import { View, StyleSheet, Image, Text, TextInput, Pressable, Alert, ScrollView}
 import { useContext } from 'react';
 import LittleLemonLogo from '../assets/little-lemon-logo-grey.png';
 import Subscription from '../components/Subscription';
-import SubData from '../subscrition_data/SubData';
+import SubData from '../datas/SubData';
 
 const EditScreen = () => {
     const {subEmail} = useContext(SubData);

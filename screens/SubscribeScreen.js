@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet, Image, Text, TextInput, Pressable, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import LittleLemonLogo from '../assets/little-lemon-logo-grey.png';
 import newsLogo from '../assets/icons8-news-420.png';
-import SubData from '../subscrition_data/SubData';
+import SubData from '../datas/SubData';
 import { useContext } from 'react';
 
 //Icon Hex Code: #FF8C00
