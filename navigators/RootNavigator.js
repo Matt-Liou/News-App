@@ -8,6 +8,7 @@ import NewsApp from "../screens/NewsApp";
 import SubscribeNavigator from "./SubscribeNavigator";
 import { DataProvider } from "../subscrition_data/SubData";
 import newsLogo from '../assets/icons8-news-420.png';
+import { TransitionPresets } from '@react-navigation/stack';
 
 const Stack = createNativeStackNavigator();
 
@@ -44,7 +45,17 @@ const styles = StyleSheet.create({
 const RootNavigator = () => {
   return (
     <DataProvider>
-      <Stack.Navigator initialRouteName="LaunchScreen">
+      <Stack.Navigator 
+        initialRouteName="LaunchScreen"
+        screenOptions={{ 
+          ...TransitionPresets.ModalSlideFromBottomIOS, // or any other preset you like
+          gestureEnabled: true,
+          cardOverlayEnabled: true,
+          headerStyle: {
+            backgroundColor: 'transparent',
+          },
+        }}
+      >
         <Stack.Screen 
           name="LaunchScreen" 
           component={LaunchScreen} 
@@ -57,6 +68,23 @@ const RootNavigator = () => {
             headerShown: false,
             headerStyle: {
               backgroundColor: '#FFC221',
+            },
+            transitionSpec: {
+              open: {
+                animation: 'timing',
+                config: { duration: 1000, useNativeDriver: true },
+              },
+              close: {
+                animation: 'timing',
+                config: { duration: 1000, useNativeDriver: true },
+              },
+            },
+            cardStyleInterpolator: ({ current: { progress } }) => {
+              return {
+                cardStyle: {
+                  opacity: progress,
+                },
+              };
             },
           }}
         />
