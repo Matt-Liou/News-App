@@ -1,3 +1,3 @@
 ## News App
 
-Nothing to display for now
+Showcasing on: https://www.mattliou.com/newsnest
