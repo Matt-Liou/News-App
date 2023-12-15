@@ -18,7 +18,6 @@ const NewsApp = ({ navigation }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedArticle, setSelectedArticle] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState('Business');
-  // const [newsData, setNewsData] = useState([]);
   const { newsData, fetchNews } = useContext(NewsContext);
 
   const getCurrentDate = () => {
@@ -29,20 +28,6 @@ const NewsApp = ({ navigation }) => {
   
     return `${day}, ${month} ${dayOfMonth}`;
   };
-
-  
-
-  // const fetchNews = async (category) => {
-  //   try {
-  //     const response = await fetch(
-  //       `https://newsapi.org/v2/top-headlines?country=us&category=${category}&apiKey=${API_KEY}`
-  //     );
-  //     const responseJson = await response.json();
-  //     setNewsData(responseJson.articles);
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // };
 
 
 
