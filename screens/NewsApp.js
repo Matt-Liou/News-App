@@ -12,6 +12,13 @@ import { NewsContext } from '../datas/NewsContext';
 const API_KEY = 'f4d9c81e82e74b42b3bde15062d289f2';
 const categories = ['Business', 'Technology', 'Entertainment', 'Health', 'Science', 'Sports'];
 
+/**
+ * Represents the main screen of the NewsNest app.
+ *
+ * This screen displays the latest news articles in various categories such as Business, Technology, Entertainment, etc.
+ * Users can view news articles in a scrollable list, and select categories using chips.
+ * The screen also features a modal view to show detailed information about a selected news article.
+ */
 const NewsApp = ({ navigation }) => {
   const [news, setNews] = useState([]);
   const [animation] = useState(new Animated.Value(1));
@@ -20,6 +27,10 @@ const NewsApp = ({ navigation }) => {
   const [selectedCategory, setSelectedCategory] = useState('Business');
   const { newsData, fetchNews } = useContext(NewsContext);
 
+  /**
+   * Fetches the current date in a human-readable format.
+   * @returns {string} A string representing the current weekday, month, and day of the month.
+   */
   const getCurrentDate = () => {
     const date = new Date();
     const day = date.toLocaleString('en-US', { weekday: 'long' });
@@ -30,7 +41,11 @@ const NewsApp = ({ navigation }) => {
   };
 
 
-
+  /**
+   * Renders an individual news item in the list.
+   * @param {Object} item - An object representing a news article.
+   * @returns {React.Component} A Pressable component displaying the news item.
+   */
   const renderItem = ({item}) => {
 
     const handlePress = () => {
@@ -56,6 +71,11 @@ const NewsApp = ({ navigation }) => {
     );
   }
 
+  /**
+   * Renders a detailed view of a news article.
+   * @param {Object} item - An object representing a news article.
+   * @returns {React.Component} A Pressable component displaying the news article in detail.
+   */
   const renderArticle = ({ item }) => {
 
     const handlePress = () => {
@@ -80,10 +100,19 @@ const NewsApp = ({ navigation }) => {
     );
   };
   
+  /**
+   * useEffect hook to fetch news based on the selected category.
+   * It calls the `fetchNews` function from the `NewsContext` whenever the selected category changes.
+   */
   useEffect(() => {
     fetchNews(selectedCategory);
   }, [selectedCategory]);
 
+  /**
+   * useEffect hook to fetch top headlines from the News API.
+   * This hook runs only once when the component mounts.
+   * It updates the local news state with the fetched data.
+   */
   useEffect(() => {
     fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=f4d9c81e82e74b42b3bde15062d289f2')
       .then(response => response.json())
@@ -91,10 +120,16 @@ const NewsApp = ({ navigation }) => {
       .catch(error => console.error(error));
   }, []);
 
+  /**
+   * Closes the modal view.
+   */
   const closeModal = () => {
     setModalVisible(false);
   };    
 
+  /**
+   * Handles navigation to the Subscribe screen with an animation.
+   */
   const handlePress = () => {
     Animated.timing(animation, {
         toValue: 0,

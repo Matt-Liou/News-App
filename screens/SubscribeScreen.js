@@ -7,10 +7,25 @@ import { useContext } from 'react';
 
 //Icon Hex Code: #FF8C00
 
+/**
+ * Represents the subscription screen for the NewsNest app.
+ * 
+ * This screen is designed for users to subscribe to the NewsNest newsletter.
+ * It features the NewsNest logo and a prompt encouraging users to stay updated with the latest news and lifestyle trends.
+ * Users can subscribe by entering their email address in the provided text input field. 
+ * Upon pressing the subscribe button, the email is added to the subscription list, and a thank you alert is displayed.
+ *
+ * This screen also includes functionality to dismiss the keyboard when tapping outside the text input field.
+ */
 const SubscribeScreen = () => {
   const [email, setEmail] = React.useState('')
   const { addEmail } = useContext(SubData);
 
+  /**
+   * Adds the user's email to the subscription list.
+   * Clears the email state after adding the email.
+   * Only triggers if the email is not an empty string.
+   */
   const handleAddEmail = () => {
     if (email !== '') {
       addEmail(email)
@@ -18,6 +33,10 @@ const SubscribeScreen = () => {
     }
   }
 
+  /**
+   * Dismisses the keyboard when the user taps outside the text input.
+   * This improves the usability of the screen on mobile devices.
+   */
   const dismissKeyboard = () => {
     Keyboard.dismiss();
   }

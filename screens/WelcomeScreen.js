@@ -3,8 +3,16 @@ import { View, StyleSheet, Image, Text, Button, Pressable } from 'react-native';
 import LittleLemonLogo from '../assets/little-lemon-logo.png';
 import sublogo from '../assets/subscribe-button.png';
 
+/**
+ * Represents the welcome screen for the Little Lemon restaurant app.
+ * 
+ * This screen displays the Little Lemon logo and a welcome message.
+ * It includes a pressable button that navigates the user to the subscription screen.
+ *
+ * @param {Object} props - Component props
+ * @param {Object} props.navigation - Navigation object used for navigating between screens.
+ */
 const WelcomeScreen = ({ navigation }) => {
-  // Add welcome screen code here.
   return (
     <View style = {styles.container}>
       <View style = {styles.contentContainer}>
