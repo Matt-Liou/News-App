@@ -1,14 +1,18 @@
 import * as React from 'react';
 import { View, StyleSheet, Image, Text, TextInput, Pressable, Alert, ScrollView} from 'react-native';
 import { useContext } from 'react';
-import LittleLemonLogo from '../assets/little-lemon-logo-grey.png';
 import Subscription from '../components/Subscription';
 import SubData from '../datas/SubData';
 
+/**
+ * Represents the subscription editing screen of the application.
+ * 
+ * This screen allows users to manage their newsletter subscriptions. It displays a list of current subscriptions,
+ * allowing users to edit or delete them as needed. The list of subscriptions is fetched from the SubData context.
+ * If there are no subscriptions, a message indicating 'No newsletter subscriptions' is displayed.
+ */
 const EditScreen = () => {
     const {subEmail} = useContext(SubData);
-    // const testList = ["ydliou2003@gmail.com", "utliou2005@gmail.com", "test@gmail.com"]
-
 
     return(
         <View style={styles.container}>

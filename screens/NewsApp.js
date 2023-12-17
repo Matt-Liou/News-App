@@ -48,6 +48,10 @@ const NewsApp = ({ navigation }) => {
    */
   const renderItem = ({item}) => {
 
+    /**
+     * Handles the press action on a news item.
+     * Sets the selected article and opens the modal to display the article's details.
+     */
     const handlePress = () => {
       setSelectedArticle(item);
       setModalVisible(true);
@@ -78,6 +82,10 @@ const NewsApp = ({ navigation }) => {
    */
   const renderArticle = ({ item }) => {
 
+    /**
+     * Handles the press action on a news item.
+     * Sets the selected article and opens the modal to display the article's details.
+     */
     const handlePress = () => {
       setSelectedArticle(item);
       setModalVisible(true);
