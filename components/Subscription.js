@@ -2,19 +2,25 @@ import React, { useContext, useState } from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity, Animated } from 'react-native';
 import SubData from '../datas/SubData';
 
+/**
+ * Subscription component for displaying individual subscription items.
+ * 
+ * This component is used to display a single subscription email address within a list. It includes functionality
+ * to remove the email from the subscription list using a context-provided function. The component also features
+ * an animation effect for the displayed items.
+ *
+ * @component
+ * @param {Object} props - Component props
+ * @param {number} props.emailIndex - The index of the email in the subscription list
+ * @param {string} props.text - The email address to be displayed
+ * 
+ * @returns {React.Component} A component representing a single subscription item with remove functionality.
+ */
 const Subscription = (props) => {
   const { removeEmail } = useContext(SubData);
   const [animation] = useState(new Animated.Value(1));
 
   const handleRemoveSubscription = () => {
-    // console.log("Removing subscription with index:", props.emailIndex);
-    // Animated.timing(animation, {
-    //   toValue: 0,
-    //   duration: 300,
-    //   useNativeDriver: true,
-    // }).start(() => {
-    //   removeEmail(props.emailIndex);
-    // });
     removeEmail(props.emailIndex);
   };
   

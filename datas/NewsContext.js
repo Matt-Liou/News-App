@@ -2,6 +2,20 @@ import React, { createContext, useState } from 'react';
 
 export const NewsContext = createContext();
 
+/**
+ * NewsProvider component for the NewsNest app.
+ *
+ * This component is a context provider for news data within the app. It uses React's Context API to
+ * manage and distribute news-related data across the application. The provider fetches news articles
+ * from a news API based on the specified category and updates its state with the fetched data.
+ *
+ * The state and the fetchNews function are exposed to the consumer components via the NewsContext.
+ *
+ * @component
+ * @param {ReactNode} children - The child components that will have access to the context.
+ * 
+ * @returns {React.Component} The NewsProvider component wrapping its children within the NewsContext.Provider.
+ */
 export const NewsProvider = ({ children }) => {
   const [newsData, setNewsData] = useState([]);
 

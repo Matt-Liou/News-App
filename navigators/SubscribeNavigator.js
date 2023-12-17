@@ -7,6 +7,21 @@ import EditScreen from "../screens/EditScreen";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { DataProvider } from "../datas/SubData";
 
+/**
+ * SubscribeNavigator component for the application.
+ *
+ * This component sets up a bottom tab navigator for the subscription-related screens using 
+ * `createBottomTabNavigator` from React Navigation. It includes two primary screens:
+ * - SubscribeScreen: A screen where users can subscribe to a newsletter.
+ * - EditScreen: A screen for managing existing newsletter subscriptions.
+ *
+ * Each tab in the navigator is represented by an icon, provided by the Ionicons package.
+ * The 'NavigationContainer' is used here with the 'independent' prop set to true, indicating that
+ * this navigator functions independently from any parent navigators.
+ *
+ * @component
+ * @returns {React.Component} The SubscribeNavigator component with the defined tab navigation.
+ */
 const SubscribeNavigator = () => {
     const Tab = createBottomTabNavigator();
 
